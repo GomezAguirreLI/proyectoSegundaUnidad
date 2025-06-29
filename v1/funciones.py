@@ -103,24 +103,12 @@ def modificarLibro():
        continua=True
        while continua:
         print("Características actuales:")
-        for i, (clave, valor) in enumerate(libro.items(), 1):
-            print(f"  {i}. {clave}: {valor}")
-        try:
-            opcion = int(input("\nElige el número de la característica a modificar (0 para salir): "))
-            if opcion == 0:
-                continua=False
-            claves = list(libro.keys())
-            if 1 <= opcion <= len(claves):
-                clave = claves[opcion - 1]
-                print(f"Valor actual de '{clave}': {libro[clave]}")
-                nuevo_valor = input(f"Nuevo valor para '{clave}': ").upper()
-                libro[clave] = nuevo_valor
-                print("..::MODIFICACIÓN EXITOSA::..\n")
-            else:
-                print("Opción inválida. Intenta de nuevo.")
-        except ValueError:
-            print("Por favor, ingresa un número válido.")
+        for idx,libro in enumerate(libros):
+                print(f"{idx}.{libro['nombre']}")       
 
+
+       
+         
     else:
         print("\n\t.::NO HAY LIBROS GUARDADOS::.\n")
         esperarTecla()
