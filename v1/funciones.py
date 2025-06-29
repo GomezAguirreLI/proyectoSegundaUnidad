@@ -53,13 +53,14 @@ def menuPrincipal():
                 case 1:
                     agregarLibros()
                 case 2:
-                    print("f")
+                    mostrarLibros()
                 case 3:
                     print("")    
                 case 4:
                     print("")
                 case 5:
-                    print("")
+                    print("\n\t..::SALIENDO DEL SW::..")
+                    opcion=False
                 case _:
                     print(".::Escoje una opción valida")    
         except ValueError:
@@ -76,6 +77,19 @@ def agregarLibros():
     libros.update({"genero":input("Ingresa el genero del libro :").upper()})
     libros.update({"idioma":input("Ingresa el idioma :").upper()})
     libros.update({"Cantidad de paginas":input("Ingrese la cantidad de paginas del libro: ").upper()})
+    libros.update({"estanteria":input("Ingrese la estanteria donde va a ser guardado :").upper()})
+
     print("..::OPERACION EXITOSA::..")
 
     esperarTecla()
+
+def mostrarLibros():
+    borrarPantalla()
+    print("\n\t.::Mostrar libros guardados::.\n")
+    if len(libros)>0:
+        for i in libros:
+            print(f"\t {i}:{libros[i]}")
+        esperarTecla()
+
+    else:
+        print("\n\t.::NO HAY LIBROS GUARDADOS::.")
