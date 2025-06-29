@@ -18,10 +18,10 @@ import platform
 
 
 
-#Pues en si los libros 
+#Pues aca guardamos el libro en si
 libro={}
-
-
+#Y aqui estamos guardando los libros dentro de una lista
+libros=[]
 
 def borrarPantalla():
     #Guardo el nombre del sistema
@@ -71,28 +71,30 @@ def menuPrincipal():
 
 def agregarLibros():
     borrarPantalla()
-    print("\n\t.:: Alta de Peliculas ::.\n ")
-    libro.update({"nombre":input("Ingresa el nombre del libro :").upper()})
-    libro.update({"categoria":input("Ingresa la categoria:del libro: ").upper()})
-    libro.update({"genero":input("Ingresa el genero del libro :").upper()})
-    libro.update({"idioma":input("Ingresa el idioma :").upper()})
-    libro.update({"Cantidad de paginas":input("Ingrese la cantidad de paginas del libro: ").upper()})
-    libro.update({"estanteria":input("Ingrese la estanteria donde va a ser guardado :").upper()})
-
+    print("\n\t.:: Alta de Libros ::.\n ")
+    nuevo_libro = {}
+    nuevo_libro["nombre"] = input("Ingresa el nombre del libro :").upper()
+    nuevo_libro["categoria"] = input("Ingresa la categoria del libro: ").upper()
+    nuevo_libro["genero"] = input("Ingresa el genero del libro :").upper()
+    nuevo_libro["idioma"] = input("Ingresa el idioma :").upper()
+    nuevo_libro["Cantidad de paginas"] = input("Ingrese la cantidad de paginas del libro: ").upper()
+    nuevo_libro["estanteria"] = input("Ingrese la estanteria donde va a ser guardado :").upper()
+    libros.append(nuevo_libro)
     print("..::OPERACION EXITOSA::..")
-
     esperarTecla()
 
 def mostrarLibros():
     borrarPantalla()
     print("\n\t.::Mostrar libros guardados::.\n")
-    if len(libro)>0:
-        for i in libro:
-            print(f"\t {i}:{libro[i]}")
+    if len(libros) > 0:
+        for idx, libro in enumerate(libros, 1):
+            print(f"\nLibro #{idx}:")
+            for clave, valor in libro.items():
+                print(f"\t{clave}: {valor}")
         esperarTecla()
-
     else:
-        print("\n\t.::NO HAY LIBROS GUARDADOS::.")
+        print("\n\t.::NO HAY LIBROS GUARDADOS::.\n")
+        esperarTecla()
 
 def modificarLibro():
     borrarPantalla()
