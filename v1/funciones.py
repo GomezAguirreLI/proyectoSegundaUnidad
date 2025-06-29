@@ -45,9 +45,9 @@ def menuPrincipal():
     while opcion:
         try:
             borrarPantalla()
-
-            print("\n\t.::Sistema informatico de una libreria::.\n 1.-Agregar \n 2.-Mostrar \n 3.-Modificar \n 4.Eliminar libro \n 5.Salir")
-            opcion=int(input("\tElige una opcion: "))
+            print("\n\t📚  .:: Sistema informático de una librería ::.  📚\n" +
+                  "\n 1️⃣  Agregar libro\n 2️⃣  Mostrar libros\n 3️⃣  Modificar libro\n 4️⃣  Eliminar libro\n 5️⃣  Salir 🛑")
+            opcion=int(input("\n	👉 Elige una opción: "))
 
             match opcion:
                 case 1:
@@ -57,61 +57,108 @@ def menuPrincipal():
                 case 3:
                     modificarLibro()
                 case 4:
-                    print("")
+                    eliminarLibro()
                 case 5:
-                    print("\n\t..::SALIENDO DEL SW::..")
+                    print("\n\t👋 ..::SALIENDO DEL SW::.. 👋")
                     opcion=False
                 case _:
-                    print(".::Escoje una opción valida")    
+                    print("⚠️  .::Escoje una opción válida::. ⚠️")    
+                    esperarTecla()
         except ValueError:
-            print(".::Ingrese un dato numerico::.")
-
+            print("⚠️  .::Ingrese un dato numérico::. ⚠️")
             esperarTecla()
-    
+
 
 def agregarLibros():
     borrarPantalla()
-    print("\n\t.:: Alta de Libros ::.\n ")
+    print("\n\t📝  .:: Alta de Libros ::.  📝\n ")
     nuevo_libro = {}
-    nuevo_libro["nombre"] = input("Ingresa el nombre del libro :").upper()
-    nuevo_libro["categoria"] = input("Ingresa la categoria del libro: ").upper()
-    nuevo_libro["genero"] = input("Ingresa el genero del libro :").upper()
-    nuevo_libro["idioma"] = input("Ingresa el idioma :").upper()
-    nuevo_libro["Cantidad de paginas"] = input("Ingrese la cantidad de paginas del libro: ").upper()
-    nuevo_libro["estanteria"] = input("Ingrese la estanteria donde va a ser guardado :").upper()
+    nuevo_libro["nombre"] = input("📖 Ingresa el nombre del libro :").upper()
+    nuevo_libro["categoria"] = input("🏷️  Ingresa la categoría del libro: ").upper()
+    nuevo_libro["genero"] = input("🎭 Ingresa el género del libro :").upper()
+    nuevo_libro["idioma"] = input("🗣️  Ingresa el idioma :").upper()
+    nuevo_libro["Cantidad de paginas"] = input("📄 Ingresa la cantidad de páginas del libro: ").upper()
+    nuevo_libro["estanteria"] = input("🗄️  Ingresa la estantería donde va a ser guardado :").upper()
     libros.append(nuevo_libro)
-    print("..::OPERACION EXITOSA::..")
+    print("\n✅ ..::OPERACIÓN EXITOSA::.. ✅")
     esperarTecla()
+
 
 def mostrarLibros():
     borrarPantalla()
-    print("\n\t.::Mostrar libros guardados::.\n")
+    print("\n\t📚  .:: Mostrar libros guardados ::.  📚\n")
     if len(libros) > 0:
         for idx, libro in enumerate(libros, 1):
-            print(f"\nLibro #{idx}:")
+            print(f"\n📗 Libro #{idx}:")
             for clave, valor in libro.items():
-                print(f"\t{clave}: {valor}")
+                print(f"   • {clave.capitalize()}: {valor}")
         esperarTecla()
     else:
-        print("\n\t.::NO HAY LIBROS GUARDADOS::.\n")
+        print("\n🚫 .::NO HAY LIBROS GUARDADOS::. 🚫\n")
         esperarTecla()
+
 
 def modificarLibro():
     borrarPantalla()
-    print("\n\t.::Modificar características del libro::.\n")
-    if len(libro) >0:
-       continua=True
-       while continua:
-        print("Características actuales:")
-        for idx,libro in enumerate(libros):
-                print(f"{idx}.{libro['nombre']}")       
-
-
-       
-         
+    print("\n\t✏️  .:: Modificar características de un libro ::.  ✏️")
+    if len(libros) >0:
+        for idx, libro in enumerate(libros, 1):
+            print(f"{idx}. {libro['nombre']}")
+        try:
+            seleccion = int(input("\n🔢 Elige el número del libro a modificar (0 para salir): "))
+            if seleccion == 0:
+                return
+            if 1 <= seleccion <= len(libros):
+                libro = libros[seleccion - 1]
+                opcion=True
+                while opcion:
+                    print("\nCaracterísticas actuales:")
+                    for i, (clave, valor) in enumerate(libro.items(), 1):
+                        print(f"  {i}. {clave.capitalize()}: {valor}")
+                    opcion = int(input("\n✏️  Elige el número de la característica a modificar (0 para salir): "))
+                    if opcion == 0:
+                        opcion=False
+                    claves = list(libro.keys())
+                    if 1 <= opcion <= len(claves):
+                        clave = claves[opcion - 1]
+                        print(f"Valor actual de '{clave.capitalize()}': {libro[clave]}")
+                        nuevo_valor = input(f"Nuevo valor para '{clave.capitalize()}': ").upper()
+                        libro[clave] = nuevo_valor
+                        print("\n✅ ..::MODIFICACIÓN EXITOSA::.. ✅\n")
+                    else:
+                        print("⚠️  Opción inválida. Intenta de nuevo.")
+            else:
+                print("⚠️  Opción de libro inválida.")
+        except ValueError:
+            print("⚠️  Por favor, ingresa un número válido.")
+        esperarTecla()
     else:
-        print("\n\t.::NO HAY LIBROS GUARDADOS::.\n")
+        print("\n🚫 .::NO HAY LIBROS GUARDADOS::. 🚫\n")
+        esperarTecla()
+
+
+def eliminarLibro():
+    borrarPantalla()
+    print("\n\t🗑️  .:: Eliminar libro ::.  🗑️")
+    if len(libros) == 0:
+        print("\n🚫 .::NO HAY LIBROS GUARDADOS::. 🚫\n")
         esperarTecla()
         return
-    
+    for idx, libro in enumerate(libros, 1):
+        print(f"{idx}. {libro['nombre']}")
+    try:
+        seleccion = int(input("\n🔢 Elige el número del libro a eliminar (0 para salir): "))
+        if seleccion == 0:
+            return
+        if 1 <= seleccion <= len(libros):
+            confirm = input(f"¿Seguro que deseas eliminar '{libros[seleccion-1]['nombre']}'? (S/N): ").upper()
+            if confirm == 'S':
+                libros.pop(seleccion-1)
+                print("\n🗑️  ..::LIBRO ELIMINADO EXITOSAMENTE::.. 🗑️")
+            else:
+                print("Operación cancelada.")
+        else:
+            print("⚠️  Opción inválida.")
+    except ValueError:
+        print("⚠️  Por favor, ingresa un número válido.")
     esperarTecla()

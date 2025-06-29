@@ -23,66 +23,72 @@ def esperarTecla():
 
 def agregar_empleado():
     borrarPantalla()
-    print("\n\t.:: Alta de Libros ::.\n ")
-    empleado["nombre"] = input("Ingresa el nombre del empleado :").upper()
-    empleado["edad"] = input("Ingresa la edad del empleado: ").upper()
-    empleado["cargo"] = input("Ingresa el cargo del empleado :").upper()
-    empleados.append(empleado)
-    print("..::OPERACION EXITOSA::..")
+    print("\n\t📝  .:: Alta de Empleado ::.  📝\n ")
+    nuevo_empleado = {}
+    nuevo_empleado["nombre"] = input("👤 Ingresa el nombre del empleado :").upper()
+    nuevo_empleado["edad"] = input("🎂 Ingresa la edad del empleado: ").upper()
+    nuevo_empleado["cargo"] = input("💼 Ingresa el cargo del empleado :").upper()
+    empleados.append(nuevo_empleado)
+    print("\n✅ ..::OPERACIÓN EXITOSA::.. ✅")
     esperarTecla()
 
 def mostrar_empleados():
     borrarPantalla()
-    print("\n\t.::Mostrar empleados guardados::.\n")
+    print("\n\t👥  .:: Mostrar empleados guardados ::.  👥\n")
     if len(empleados) > 0:
         for idx, empleado in enumerate(empleados, 1):
-            print(f"\nEmpleado #{idx}:")
+            print(f"\n🧑‍💼 Empleado #{idx}:")
             for clave, valor in empleado.items():
-                print(f"\t{clave}: {valor}")
+                print(f"   • {clave.capitalize()}: {valor}")
         esperarTecla()
     else:
-        print("\n\t.::NO HAY EMPLEADOS GUARDADOS::.\n")
+        print("\n🚫 .::NO HAY EMPLEADOS GUARDADOS::. 🚫\n")
         esperarTecla()
 
 def actualizar_empleados():
     borrarPantalla()
-    print("\n\t.::Modificar características del empleado::.\n")
-    if len(empleado) >0:
-       continua=True
-       while continua:
-            print("Características actuales:")
-            for i, (clave, valor) in enumerate(empleado.items(), 1):
-                print(f"  {i}. {clave}: {valor}")
-            try:
-                opcion = int(input("\nElige el número de la característica a modificar (0 para salir): "))
-                if opcion == 0:
-                    continua=False
-                claves = list(empleado.keys())
-                if 1 <= opcion <= len(claves):
-                    clave = claves[opcion - 1]
-                    print(f"Valor actual de '{clave}': {empleado[clave]}")
-                    nuevo_valor = input(f"Nuevo valor para '{clave}': ").upper()
-                    empleado[clave] = nuevo_valor
-                    print("..::MODIFICACIÓN EXITOSA::..\n")
-                else:
-                    print("Opción inválida. Intenta de nuevo.")
-            except ValueError:
-                print("Por favor, ingresa un número válido.")
-
-    else:
-        print("\n\t.::NO HAY LIBROS GUARDADOS::.\n")
+    print("\n\t✏️  .:: Modificar características de un empleado ::.  ✏️")
+    if len(empleados) > 0:
+        for idx, empleado in enumerate(empleados, 1):
+            print(f"{idx}. {empleado['nombre']}")
+        try:
+            seleccion = int(input("\n🔢 Elige el número del empleado a modificar (0 para salir): "))
+            if seleccion == 0:
+                return
+            if 1 <= seleccion <= len(empleados):
+                empleado = empleados[seleccion - 1]
+                while True:
+                    print("\nCaracterísticas actuales:")
+                    for i, (clave, valor) in enumerate(empleado.items(), 1):
+                        print(f"  {i}. {clave.capitalize()}: {valor}")
+                    opcion = int(input("\n✏️  Elige el número de la característica a modificar (0 para salir): "))
+                    if opcion == 0:
+                        break
+                    claves = list(empleado.keys())
+                    if 1 <= opcion <= len(claves):
+                        clave = claves[opcion - 1]
+                        print(f"Valor actual de '{clave.capitalize()}': {empleado[clave]}")
+                        nuevo_valor = input(f"Nuevo valor para '{clave.capitalize()}': ").upper()
+                        empleado[clave] = nuevo_valor
+                        print("\n✅ ..::MODIFICACIÓN EXITOSA::.. ✅\n")
+                    else:
+                        print("⚠️  Opción inválida. Intenta de nuevo.")
+            else:
+                print("⚠️  Opción de empleado inválida.")
+        except ValueError:
+            print("⚠️  Por favor, ingresa un número válido.")
         esperarTecla()
-        return
-    
-    esperarTecla()
+    else:
+        print("\n🚫 .::NO HAY EMPLEADOS GUARDADOS::. 🚫\n")
+        esperarTecla()
 
 def menuEmpleados():
     opcion = True
     while opcion:
         try:
             borrarPantalla()
-            print("\n\t.::Sistema de empleados::.\n 1.-Agregar empleado\n 2.-Mostrar empleados\n 3.-Modificar empleado\n 4.-Eliminar empleado\n 5.-Salir")
-            opcion = int(input("\tElige una opcion: "))
+            print("\n\t👔  .:: Sistema de empleados ::.  👔\n 1️⃣  Agregar empleado\n 2️⃣  Mostrar empleados\n 3️⃣  Modificar empleado\n 4️⃣  Eliminar empleado\n 5️⃣  Salir 🛑")
+            opcion = int(input("\n\t👉 Elige una opción: "))
             match opcion:
                 case 1:
                     agregar_empleado()
@@ -93,14 +99,37 @@ def menuEmpleados():
                 case 4:
                     eliminar_empleado()
                 case 5:
-                    print("\n\t..::SALIENDO DEL SISTEMA DE EMPLEADOS::..")
+                    print("\n\t👋 ..::SALIENDO DEL SISTEMA DE EMPLEADOS::.. 👋")
                     opcion = False
                 case _:
-                    print(".::Escoje una opción valida::.")
+                    print("⚠️  .::Escoje una opción válida::. ⚠️")
                     esperarTecla()
         except ValueError:
-            print(".::Ingrese un dato numerico::.")
+            print("⚠️  .::Ingrese un dato numérico::. ⚠️")
             esperarTecla()
 
 def eliminar_empleado():
-    pass
+    borrarPantalla()
+    print("\n\t🗑️  .:: Eliminar empleado ::.  🗑️")
+    if len(empleados) == 0:
+        print("\n🚫 .::NO HAY EMPLEADOS GUARDADOS::. 🚫\n")
+        esperarTecla()
+        return
+    for idx, empleado in enumerate(empleados, 1):
+        print(f"{idx}. {empleado['nombre']}")
+    try:
+        seleccion = int(input("\n🔢 Elige el número del empleado a eliminar (0 para salir): "))
+        if seleccion == 0:
+            return
+        if 1 <= seleccion <= len(empleados):
+            confirm = input(f"¿Seguro que deseas eliminar a {empleados[seleccion-1]['nombre']}? (S/N): ").upper()
+            if confirm == 'S':
+                empleados.pop(seleccion-1)
+                print("\n🗑️  ..::EMPLEADO ELIMINADO EXITOSAMENTE::.. 🗑️")
+            else:
+                print("Operación cancelada.")
+        else:
+            print("⚠️  Opción inválida.")
+    except ValueError:
+        print("⚠️  Por favor, ingresa un número válido.")
+    esperarTecla()

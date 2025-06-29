@@ -10,22 +10,23 @@ def main():
     opcion=True
     while opcion:
         funciones.borrarPantalla()
-        print("\n\t.::Sistema principal::.\n 1.-Menú de Libros\n 2.-Menú de Empleados\n 3.-Salir")
+        print("\n\t✨  .:: SISTEMA PRINCIPAL ::.  ✨\n" +
+              "\n 1️⃣  Menú de Libros\n 2️⃣  Menú de Empleados\n 3️⃣  Salir 🛑")
         try:
-            opcion = int(input("\tElige una opción: "))
+            opcion = int(input("\n\t👉 Elige una opción: "))
             match opcion:
                 case 1:
                     funciones.menuPrincipal()
                 case 2:
                     empleados.menuEmpleados()
                 case 3:
-                    print("\n\t..::SALIENDO DEL SISTEMA::..")
+                    print("\n\t👋 ..::SALIENDO DEL SISTEMA::.. 👋")
                     opcion=False
                 case _:
-                    print(".::Escoje una opción válida::.")
+                    print("⚠️  .::Escoje una opción válida::. ⚠️")
                     funciones.esperarTecla()
         except ValueError:
-            print(".::Ingrese un dato numérico::.")
+            print("⚠️  .::Ingrese un dato numérico::. ⚠️")
             funciones.esperarTecla()
 
 if __name__ == "__main__":
