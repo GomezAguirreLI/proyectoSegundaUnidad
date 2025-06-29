@@ -41,16 +41,17 @@ def esperarTecla():
     input("\n\t.::Ingrese cualquier tecla para continuar::.")
 
 def menuPrincipal():
-    borrarPantalla()
     opcion=True
     while opcion:
         try:
+            borrarPantalla()
+
             print("\n\t.::Sistema informatico de una libreria::.\n 1.-Agregar \n 2.-Mostrar \n 3.-Modificar \n 4.Eliminar libro \n 5.Salir")
             opcion=int(input("\tElige una opcion: "))
 
             match opcion:
                 case 1:
-                    print("Agregar") 
+                    agregarLibros()
                 case 2:
                     print("f")
                 case 3:
@@ -68,10 +69,13 @@ def menuPrincipal():
     
 
 def agregarLibros():
-     borrarPantalla()
-     print("\n\t.:: Alta de Peliculas ::.\n ")
-     libros.update({"nombre":input("Ingresa el nombre del libro :").upper()})
-     libros.update({"categoria":input("Ingresa la categoria:del libro: ").upper()})
-     libros.update({"genero":input("Ingresa el genero del libro :").upper()})
-     libros.update({"idioma":input("Ingresa el idioma :").upper()})
-     libros.update({"Cantidad de paginas":input("Ingrese la cantidad de paginas del libro").upper()})
+    borrarPantalla()
+    print("\n\t.:: Alta de Peliculas ::.\n ")
+    libros.update({"nombre":input("Ingresa el nombre del libro :").upper()})
+    libros.update({"categoria":input("Ingresa la categoria:del libro: ").upper()})
+    libros.update({"genero":input("Ingresa el genero del libro :").upper()})
+    libros.update({"idioma":input("Ingresa el idioma :").upper()})
+    libros.update({"Cantidad de paginas":input("Ingrese la cantidad de paginas del libro: ").upper()})
+    print("..::OPERACION EXITOSA::..")
+
+    esperarTecla()
