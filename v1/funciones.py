@@ -19,7 +19,7 @@ import platform
 
 
 #Pues en si los libros 
-libros={}
+libro={}
 
 
 
@@ -55,7 +55,7 @@ def menuPrincipal():
                 case 2:
                     mostrarLibros()
                 case 3:
-                    print("")    
+                    modificarLibro()
                 case 4:
                     print("")
                 case 5:
@@ -72,12 +72,12 @@ def menuPrincipal():
 def agregarLibros():
     borrarPantalla()
     print("\n\t.:: Alta de Peliculas ::.\n ")
-    libros.update({"nombre":input("Ingresa el nombre del libro :").upper()})
-    libros.update({"categoria":input("Ingresa la categoria:del libro: ").upper()})
-    libros.update({"genero":input("Ingresa el genero del libro :").upper()})
-    libros.update({"idioma":input("Ingresa el idioma :").upper()})
-    libros.update({"Cantidad de paginas":input("Ingrese la cantidad de paginas del libro: ").upper()})
-    libros.update({"estanteria":input("Ingrese la estanteria donde va a ser guardado :").upper()})
+    libro.update({"nombre":input("Ingresa el nombre del libro :").upper()})
+    libro.update({"categoria":input("Ingresa la categoria:del libro: ").upper()})
+    libro.update({"genero":input("Ingresa el genero del libro :").upper()})
+    libro.update({"idioma":input("Ingresa el idioma :").upper()})
+    libro.update({"Cantidad de paginas":input("Ingrese la cantidad de paginas del libro: ").upper()})
+    libro.update({"estanteria":input("Ingrese la estanteria donde va a ser guardado :").upper()})
 
     print("..::OPERACION EXITOSA::..")
 
@@ -86,10 +86,42 @@ def agregarLibros():
 def mostrarLibros():
     borrarPantalla()
     print("\n\t.::Mostrar libros guardados::.\n")
-    if len(libros)>0:
-        for i in libros:
-            print(f"\t {i}:{libros[i]}")
+    if len(libro)>0:
+        for i in libro:
+            print(f"\t {i}:{libro[i]}")
         esperarTecla()
 
     else:
         print("\n\t.::NO HAY LIBROS GUARDADOS::.")
+
+def modificarLibro():
+    borrarPantalla()
+    print("\n\t.::Modificar características del libro::.\n")
+    if len(libro) >0:
+       continua=True
+       while continua:
+        print("Características actuales:")
+        for i, (clave, valor) in enumerate(libro.items(), 1):
+            print(f"  {i}. {clave}: {valor}")
+        try:
+            opcion = int(input("\nElige el número de la característica a modificar (0 para salir): "))
+            if opcion == 0:
+                continua=False
+            claves = list(libro.keys())
+            if 1 <= opcion <= len(claves):
+                clave = claves[opcion - 1]
+                print(f"Valor actual de '{clave}': {libro[clave]}")
+                nuevo_valor = input(f"Nuevo valor para '{clave}': ").upper()
+                libro[clave] = nuevo_valor
+                print("..::MODIFICACIÓN EXITOSA::..\n")
+            else:
+                print("Opción inválida. Intenta de nuevo.")
+        except ValueError:
+            print("Por favor, ingresa un número válido.")
+
+    else:
+        print("\n\t.::NO HAY LIBROS GUARDADOS::.\n")
+        esperarTecla()
+        return
+    
+    esperarTecla()
