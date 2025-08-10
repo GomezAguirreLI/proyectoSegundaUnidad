@@ -12,6 +12,13 @@ libro={
 }
 """
 
+libro={
+    "Nombre":"",
+    "Autor":"",
+    "Genero":"",
+    "cantidad de paginas":"",
+}
+
 import os
 #Platform es para ver que sistema se esta usando
 import platform
