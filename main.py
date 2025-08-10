@@ -66,7 +66,7 @@ def main():
 
 def menu_libreria(usuario_id,nombre):
     bandera=True
-    libro={}
+    
     while bandera:
          
          funciones.borrarPantalla()
@@ -83,30 +83,33 @@ def menu_libreria(usuario_id,nombre):
          
          #area de ps como tal el menu
 
-         opcion=funciones.menu_usuarios()
+         opcion=funciones.menu_libreria()
          
          if opcion == "1" or opcion == "AGREGAR LIBRO":
             funciones.borrarPantalla()
             print("\n\t 📚 ..:: Agregar Libro ::.. 📚")
+            libro.crearLibro()
 
-           
+         elif opcion == "2" or opcion == "MOSTRAR LIBRO":
+                funciones.borrarPantalla()
+                libros_disponibles=libro.mostrar_libros()
+                if len(libros_disponibles)>0:
+                  print("\n\t 📖 ..:: Libros disponibles  ::.. 📖")
+                  print(f"{'ID':>15}{'Titulo':>20}{'categoria':>20}{'idioma':>20}{'cant_paginas':>20}{'Estanteria':>20}{'Autor':>20}")
+                  for fila in libros_disponibles:
+                      print("-"*180)
+                      
+                      print(f"{fila[0]:>15}{fila[1]:>20}{fila[2]:>20}{fila[3]:>20}{fila[4]:>20}{fila[5]:>20}{fila[6]:>20}")
 
-         elif opcion == "2" or opcion == "RENTAR LIBRO":
-                funciones.borrarPantalla()
-                print("\n\t 📖 ..:: Rentar Libro ::.. 📖")
-                funciones.mostrar_libros_disponibles()
-                libro_id = input("\t Ingrese el ID del libro a rentar: ").strip()
-                resultado = funciones.rentar_libro(usuario_id, libro_id)
-                if resultado:
-                    print("\n\t Libro rentado correctamente.")
-                else:
-                    print("\n\t No se pudo rentar el libro. Intente de nuevo.")
+
                 funciones.esperarTecla()
-         elif opcion == "3" or opcion == "MIS LIBROS":
+         elif opcion == "3" or opcion == "RENTAR LIBRO":
                 funciones.borrarPantalla()
-                print("\n\t 📚 ..:: Mis Libros Rentados ::.. 📚")
-                funciones.mostrar_libros_rentados(usuario_id)
-                funciones.esperarTecla()
+                libro.rentar_libro(1,3,5,5)
+
+
+
+              
          elif opcion == "4" or opcion == "DEVOLVER LIBRO":
                 funciones.borrarPantalla()
                 print("\n\t 🔄 ..:: Devolver Libro ::.. 🔄")
@@ -150,4 +153,4 @@ def menu_admin(nombre):
             funciones.esperarTecla()         
 
 if __name__=="__main__":
-    main()
+    main() 

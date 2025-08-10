@@ -36,9 +36,10 @@ def hash_password(contrasena):
 def registrar(nombre,telf,contrasena,clave):
     try:
         admin="NO"
+        libros_rentados=0
         contrasena=hashlib.sha256(contrasena.encode()).hexdigest()
-        sql="INSERT INTO usuarios(nombre, num_telefonico, contrasena, clave, administrador) VALUES (%s,%s,%s,%s,%s)"
-        val=(nombre,telf,contrasena,clave,admin)
+        sql="INSERT INTO usuarios(nombre, num_telefonico, contrasena, clave, administrador,libros_rentados) VALUES (%s,%s,%s,%s,%s,%s)"
+        val=(nombre,telf,contrasena,clave,admin,libros_rentados)
         cursor.execute(sql,val)
         conexion.commit()
         return True
@@ -57,6 +58,14 @@ def obtener_claves_usuarios():
         print("Error al obtener claves:", e)
         return set()
 
+def obtener_libros_rentados(clave):
+    try:
+        sql="SELECT * FROM `usuarios` WHERE clave=%s"
+        val=(clave)
+        cursor.execute(sql,val)
+        return cursor.fetchall()
+    except Exception as e:
+        return []
 
 def iniciar_sesion(nombre,contrasena):
     try:
